@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 5.0"
   s.add_dependency "js-routes", "~>1.0"
   s.add_dependency 'alchemy_cms', '~> 4.0'
-  s.add_dependency 'alchemy-devise', '~> 4.0'
+  s.add_dependency 'recaptcha','~> 4.7.0'
+
 
   #s.add_development_dependency "sqlite3"
 end

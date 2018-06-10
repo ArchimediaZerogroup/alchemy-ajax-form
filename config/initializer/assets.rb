@@ -1,0 +1,1 @@
+Rails.application.config.assets.precompile << 'alchemy_ajax_form_manifest.js'

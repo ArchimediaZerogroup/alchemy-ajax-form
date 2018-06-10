@@ -1,5 +1,5 @@
 module Alchemy
-  class AjaxFormMailer < ApplicationMailer
+  class AjaxFormsMailer < ApplicationMailer
 
 
     def notify_message(r)

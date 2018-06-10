@@ -4,7 +4,7 @@ module Alchemy
 
     def create
       @object = base_class.new permitted_resource_attributes
-      if (verify_recaptcha(model: @object) or Rails.application.secrets.recaptcha[:simulate]) && @object.valid?
+      if verify_recaptcha(model: @object) && @object.valid?
         #registro dati, invio email
         @object.save
         @object.mailer.deliver

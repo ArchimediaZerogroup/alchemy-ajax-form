@@ -1,7 +1,7 @@
 
 require "alchemy_cms"
 require "js-routes"
-require "alchemy/devise"
+require "recaptcha/rails"
 
 require "alchemy/ajax/form/engine"
 

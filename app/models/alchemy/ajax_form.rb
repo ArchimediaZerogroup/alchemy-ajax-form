@@ -3,6 +3,13 @@ module Alchemy
 
     self.abstract_class = true
 
+    belongs_to :language, class_name: "Alchemy::Language", optional: true, required: false
+
+    def site
+      language.try(:site)
+    end
+
+
     def sended!
       @_sended = true
     end
@@ -21,8 +28,10 @@ module Alchemy
     #Mi serve per memorizzare l'elemento alchemy da cui è partita la form, in modo da poter idetificare la mail del destinatario
     attr_accessor :alcm_element
 
+    before_save -> { self.language = Alchemy::Language.current}
+
     def mailer
-      AjaxFormMailer.notify_message(self)
+      AjaxFormsMailer.notify_message(self)
     end
 
     def emails_recipient
