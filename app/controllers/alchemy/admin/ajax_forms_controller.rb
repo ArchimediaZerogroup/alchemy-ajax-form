@@ -3,7 +3,7 @@ module Alchemy
     class AjaxFormsController < ResourcesController
 
       def resource_handler
-        @_resource_handler ||= "::Alchemy::#{controller_name.classify}Resource".constantize.new(controller_path, alchemy_module)
+        @_resource_handler ||= "::#{controller_name.classify}Resource".constantize.new(controller_path, alchemy_module)
       end
 
       def index
