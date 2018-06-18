@@ -1,0 +1,8 @@
+class Create<%= name.classify.singularize %> < ActiveRecord::Migration[<%= Rails::VERSION::MAJOR %>.<%= Rails::VERSION::MINOR %>]
+  def change
+    create_table :<%= name.underscore.pluralize %> do |t|
+      <% attributes.each do |attr| %>t.<%= attr.type %> :<%= attr.name %><% end %>
+      t.timestamps
+    end
+  end
+end

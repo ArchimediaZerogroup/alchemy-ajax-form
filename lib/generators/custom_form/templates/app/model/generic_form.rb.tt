@@ -1,0 +1,20 @@
+class <%= name.singularize.classify %> < Alchemy::AjaxForm
+
+  store :serialized_data, accessors: [
+      :check_privacy,
+<% attributes.each do |attr| %>
+      <%= attr.name.to_sym %>,
+<% end %>
+  ], coder: JSON
+
+  attribute :check_privacy, :boolean
+
+  validates :check_privacy, inclusion: [true, '1']
+
+
+  def notify_subject
+    I18n.translate(:<%= name.singularize.classify %>_notify, scope: [:ajax_form_mailer, :subjects])
+  end
+
+
+end

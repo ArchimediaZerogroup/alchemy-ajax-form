@@ -1,0 +1,8 @@
+<% attributes.each do |attr| %>
+<div><strong><%= attr.name %>:</strong></div>
+<div>
+<%%= rec.<%=attr.name %> %>
+</div>
+
+
+<% end %>

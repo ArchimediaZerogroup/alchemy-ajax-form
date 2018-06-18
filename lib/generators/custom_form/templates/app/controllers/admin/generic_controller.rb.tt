@@ -1,0 +1,3 @@
+class Admin::<%= name.classify.pluralize %>Controller < Alchemy::Admin::AjaxFormsController
+
+end

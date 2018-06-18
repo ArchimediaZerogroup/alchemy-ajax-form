@@ -1,0 +1,25 @@
+<%%- cache(element) do -%>
+  <%%= element_view_for(element) do |el| -%>
+
+
+    <%%
+      @<%= name.underscore.singularize %> = <%= name.singularize.classify %>.new
+      @<%= name.underscore.singularize %>.alcm_element = element.id
+    %>
+
+
+    <div class="messages"></div>
+
+
+    <%%= form_for(@<%= name.underscore.singularize %>, url: main_app.<%= name.underscore.pluralize %>_path, method: :post, remote: true, multipart: true,html:{class: "ajax_forms"}) do |f| %>
+      <%%= f.hidden_field :alcm_element %>
+      <% attributes.each do |attr| %>
+      <%%= f.<%=attr.field_type.to_s%> %>
+      <% end %>
+
+    <%% end %>
+
+
+
+  <%%- end -%>
+<%%- end -%>

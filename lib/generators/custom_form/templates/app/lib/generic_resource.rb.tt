@@ -1,0 +1,4 @@
+class <%= name.classify.singularize %>Resource < AjaxFormResource
+
+
+end

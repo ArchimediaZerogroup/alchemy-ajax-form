@@ -1,0 +1,19 @@
+Alchemy::Modules.register_module({
+                                   name: 'alchemy_ajax_forms',
+                                   order: 1,
+                                   navigation: {
+                                     name: 'modules.<%= name.pluralize.underscore%>',
+                                     controller: '/admin/<%= name.pluralize.underscore%>',
+                                     action: 'index',
+                                     image: 'alchemy/ajax_form.png',
+                                     sub_navigation: [
+                                     {
+                                       name: 'modules.<%= name.pluralize.underscore%>',
+                                       controller: '/admin/<%= name.pluralize.underscore%>',
+                                       action: 'index'
+                                     },
+                                     ]
+                                   }
+                                 })
+
+Alchemy.register_ability(<%= name.singularize.classify%>Ability)

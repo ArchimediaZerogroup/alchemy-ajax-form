@@ -1,0 +1,18 @@
+class <%= name.singularize.classify%>Ability
+  include CanCan::Ability
+
+  def initialize(user)
+
+    if user.present? && user.is_admin?
+
+      can :manage, <%= name.singularize.classify%>
+      cannot :create, <%= name.singularize.classify%>
+      cannot :update, <%= name.singularize.classify%>
+      can :manage, :admin_contact_forms
+      cannot :create, :admin_<%= name.underscore.pluralize %>
+      cannot :update, :admin_<%= name.underscore.pluralize %>
+
+    end
+  end
+
+end
