@@ -7,18 +7,22 @@ class CustomFormGenerator < Rails::Generators::NamedBase
 
   attr_accessor :model_attributes
 
+  desc "Create amin controller"
   def add_admin_cotroller
     template "app/controllers/admin/generic_controller.rb.tt", "app/controllers/admin/#{name.underscore.pluralize}_controller.rb"
   end
 
+  desc "Create controller"
   def add_controller
     template "app/controllers/generic_controller.rb.tt", "app/controllers/#{name.underscore.pluralize}_controller.rb"
   end
 
+  desc "Create Resource"
   def add_resource
     template "app/lib/generic_resource.rb.tt", "app/lib/#{name.singularize.underscore}_resource.rb"
   end
 
+  desc "Create model"
   def add_model
 
     # inserted_attributes = attributes
@@ -48,6 +52,7 @@ class CustomFormGenerator < Rails::Generators::NamedBase
   end
 
 
+  desc "Create elements view"
   def add_element_view
 
     template "app/views/alchemy/elements/_generic_ajax_form_view.html.erb.tt",
@@ -55,6 +60,7 @@ class CustomFormGenerator < Rails::Generators::NamedBase
 
   end
 
+  desc "Create initializer"
   def add_initializer
     #
     file ="#{Rails.root}/config/initializers/alchemy_ajax_forms.rb"
@@ -77,11 +83,13 @@ class CustomFormGenerator < Rails::Generators::NamedBase
 
   end
 
+  desc "Add email template"
   def add_mail_template
     template "app/views/alchemy/ajax_forms_mailer/_generic_form.html.erb.tt",
              "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}.html.erb"
   end
 
+  desc "Add element configuration"
   def add_element_config
     append_to_file "config/alchemy/elements.yml", <<-element
 - name: #{name.singularize.underscore}
@@ -99,6 +107,7 @@ class CustomFormGenerator < Rails::Generators::NamedBase
   end
 
 
+  desc "Add needed routes"
   def add_routes
 
     routes_path = Rails.root + "config/routes.rb"
@@ -124,6 +133,12 @@ resources :#{name.underscore.pluralize} , only: [:create]
 
     end
 
+  end
+
+  desc "Run migration and install mjml"
+  def run_scripts
+    rake("db:migrate")
+    run "npm install mjml"
   end
 
 
