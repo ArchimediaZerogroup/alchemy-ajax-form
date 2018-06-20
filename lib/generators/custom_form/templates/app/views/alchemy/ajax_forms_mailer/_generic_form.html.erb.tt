@@ -1,8 +1,11 @@
+<mj-column>
+<mj-text align="left" color="#000000" font-family="Open Sans, Arial, sans-serif" font-size="11px" line-height="20px" padding-bottom="20px" padding-top="0px" padding="10px 25px">
+<p style="line-height: 20px; text-align: justify; margin: 10px 0;color:#000000;font-size:12px;font-family:'Open Sans',Helvetica,Arial,sans-serif">
 <% attributes.each do |attr| %>
-<div><strong><%= attr.name %>:</strong></div>
-<div>
+<span><b><%= attr.name %>:</b></span>
+<span>
 <%%= rec.<%=attr.name %> %>
-</div>
-
-
 <% end %>
+</p>
+</mj-text>
+</mj-column>
