@@ -1,4 +1,4 @@
-class <%= name.classify.singularize %>Resource < AjaxFormResource
+class <%= name.classify.singularize %>Resource < Alchemy::AjaxFormResource
 
 
 end

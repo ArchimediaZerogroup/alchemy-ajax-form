@@ -14,8 +14,10 @@
     <%%= form_for(@<%= name.underscore.singularize %>, url: main_app.<%= name.underscore.pluralize %>_path, method: :post, remote: true, multipart: true,html:{class: "ajax_forms"}) do |f| %>
       <%%= f.hidden_field :alcm_element %>
       <% attributes.each do |attr| %>
-      <%%= f.<%=attr.field_type.to_s%> %>
+      <%%= f.<%=attr.field_type.to_s%> :<%= attr.name %> %>
       <% end %>
+      <%%= f.check_box :check_privacy %>
+      <%%= f.submit t(:submit) %>
 
     <%% end %>
 

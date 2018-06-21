@@ -7,7 +7,7 @@
     <mj-container background-color="#F4F4F4" color="#55575d" font-family="Arial, sans-serif">
       <mj-section background-color="#000000" background-repeat="no-repeat" text-align="center" vertical-align="top">
         <mj-column>
-          <mj-image align="center" border="none" padding-bottom="30px" padding="10px 25px" src="<%= asset_path "logo_mail.png"  %>" target="_blank" title="" width="180px"></mj-image>
+          <mj-image align="center" border="none" padding-bottom="30px" padding="10px 25px" src="<%#= asset_path "logo_mail.png"  %>" target="_blank" title="" width="180px"></mj-image>
           <mj-text align="left" color="#55575d" font-family="Arial, sans-serif" font-size="13px" line-height="22px" padding-bottom="0px" padding-top="0px" padding="10px 25px">
 
           </mj-text>

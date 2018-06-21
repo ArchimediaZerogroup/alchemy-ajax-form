@@ -8,7 +8,7 @@ class <%= name.singularize.classify%>Ability
       can :manage, <%= name.singularize.classify%>
       cannot :create, <%= name.singularize.classify%>
       cannot :update, <%= name.singularize.classify%>
-      can :manage, :admin_contact_forms
+      can :manage, :admin_<%= name.underscore.pluralize %>
       cannot :create, :admin_<%= name.underscore.pluralize %>
       cannot :update, :admin_<%= name.underscore.pluralize %>
 

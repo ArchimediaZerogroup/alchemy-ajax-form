@@ -17,3 +17,9 @@ Alchemy::Modules.register_module({
                                  })
 
 Alchemy.register_ability(<%= name.singularize.classify%>Ability)
+
+module Alchemy
+
+EMAIL_NOTIFY= "example@example.it"
+
+end

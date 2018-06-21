@@ -1,8 +1,11 @@
 class Create<%= name.classify.singularize %> < ActiveRecord::Migration[<%= Rails::VERSION::MAJOR %>.<%= Rails::VERSION::MINOR %>]
   def change
     create_table :<%= name.underscore.pluralize %> do |t|
-      <% attributes.each do |attr| %>t.<%= attr.type %> :<%= attr.name %><% end %>
+      <% attributes.each do |attr| %>
+      t.<%= attr.type %> :<%= attr.name %>
+      <% end %>
       t.boolean :check_privacy
+      t.references :language, index: true
       t.timestamps
     end
   end
