@@ -1,3 +1,3 @@
-class <%= name.pluralize.classify %>Controller < Alchemy::AjaxFormsController
+class <%= name.classify.pluralize %>Controller < Alchemy::AjaxFormsController
 
 end

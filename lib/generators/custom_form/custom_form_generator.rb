@@ -75,7 +75,11 @@ class CustomFormGenerator < Rails::Generators::NamedBase
                                        action: 'index'
                                      },
         code
-        end
+      end
+
+      append_to_file file do
+        "Alchemy.register_ability(#{name.singularize.classify}Ability)"
+      end
 
     end
 
