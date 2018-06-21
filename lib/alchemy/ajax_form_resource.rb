@@ -3,12 +3,12 @@ module Alchemy
 
 
     def attributes
-      attr = (super + model.stored_attributes[:serialized_data].collect {|col|
+      attr = (super + model.columns.collect {|col|
         {
-            name: col,
+            name: col.name,
             type: :string
         }
-      }).reject {|c| [:serialized_data, :check_privacy].include?(c[:name].to_sym)}
+      }).reject {|c| [:check_privacy].include?(c[:name].to_sym)}
 
       attr += [{
                    name: :language,
@@ -34,7 +34,11 @@ module Alchemy
 
 
     def searchable_attribute_names
-      [:email]
+      if model.column_names.include? "email"
+        [:email]
+      else
+        []
+      end
     end
 
     def search_field_name
