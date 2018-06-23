@@ -139,6 +139,13 @@ resources :#{name.underscore.pluralize} , only: [:create]
 
   end
 
+  desc "Require needed assets"
+  def add_assets
+    inject_into_file  "app/assets/javascripts/application.js" , before: '//= require_tree .' do
+      "\n//= require jquery3\n//= require ajax_forms\n"
+    end
+  end
+
   desc "Run migration and install mjml and create alchemy elements"
   def run_scripts
     rake("db:migrate")

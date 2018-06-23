@@ -3,6 +3,8 @@
 
 
     <%%
+      privacy_link = element.content_by_name(:privacy_page).essence.link
+      privacy_title = element.content_by_name(:privacy_page).essence.body
       @<%= name.underscore.singularize %> = <%= name.singularize.classify %>.new
       @<%= name.underscore.singularize %>.alcm_element = element.id
     %>
@@ -13,11 +15,31 @@
 
     <%%= form_for(@<%= name.underscore.singularize %>, url: main_app.<%= name.underscore.pluralize %>_path, method: :post, remote: true, multipart: true,html:{class: "ajax_forms"}) do |f| %>
       <%%= f.hidden_field :alcm_element %>
+      <div class="row">
       <% attributes.each do |attr| %>
+      <div class="box-input col-12">
       <%%= f.<%=attr.field_type.to_s%> :<%= attr.name %> %>
+      </div>
       <% end %>
-      <%%= f.check_box :check_privacy %>
+      </div>
+
+    <%% if !privacy_title.blank? %>
+       <div class="privacy">
+         <div class="single_privacy">
+           <%%= f.check_box :check_privacy %>
+           <%%= link_to privacy_link do %>
+             <label><%%= privacy_title %></label>
+           <% end %>
+         </div>
+       </div>
+     <%% else %>
+       <%%= f.check_box :check_privacy %>
+     <%% end %>
+
+
+      <div class="submit">
       <%%= f.submit t(:submit) %>
+      </div>
 
     <%% end %>
 
@@ -25,3 +47,4 @@
 
   <%%- end -%>
 <%%- end -%>
+

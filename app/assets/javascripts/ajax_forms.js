@@ -16,23 +16,27 @@
         }
     };
 
-    var add_errors= function(errors){
+    var add_errors= function(form,errors){
 
         $.each(errors,function(name,value){
 
-            var input= $("input[name*='"+name+"']");
+            var input= $(form).find("input[name*='"+name+"']");
 
             $(input).addClass("invalid");
             $(input).parent().append("<span class='error-message'>"+value+"</span>");
-
-
 
         });
     }
 
 
 
-    $(document).on("ajax:success", ".ajax_forms", function(event, response, status, error) {
+    $(document).on("ajax:success", ".ajax_forms", function(event) {
+        var response;
+        var xhr;
+        var status;
+
+        [response, status, xhr] = event.detail
+
 
 
         var form = this;
@@ -45,13 +49,18 @@
     });
 
 
-    $(document).on("ajax:error",".ajax_forms", function (event, xhr, status, error) {
+    $(document).on("ajax:error",".ajax_forms", function (event) {
+        
+        var response;
+        var xhr;
+        var status;
+        [response, status, xhr] = event.detail
 
         var form = this;
         var message_box = $(form).parent().find(".messages")[0];
         print_results(message_box,JSON.parse(xhr.responseText).messages);
         $(message_box).addClass('ko');
-        add_errors(JSON.parse(xhr.responseText).errors);
+        add_errors(form,JSON.parse(xhr.responseText).errors);
 
      });
 
