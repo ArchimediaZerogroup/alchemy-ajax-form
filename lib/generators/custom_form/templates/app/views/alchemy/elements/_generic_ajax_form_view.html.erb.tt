@@ -29,7 +29,7 @@
            <%%= f.check_box :check_privacy %>
            <%%= link_to privacy_link do %>
              <label><%%= privacy_title %></label>
-           <% end %>
+           <%% end %>
          </div>
        </div>
      <%% else %>
