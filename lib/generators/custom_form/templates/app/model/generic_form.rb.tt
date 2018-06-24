@@ -7,5 +7,9 @@ class <%= name.singularize.classify %> < Alchemy::AjaxForm
     I18n.translate(:<%= name.singularize.classify %>_notify, scope: [:ajax_form_mailer, :subjects])
   end
 
+  def notify_user_subject
+    I18n.translate(:<%= name.singularize.classify %>_user_notify, scope: [:ajax_form_mailer, :subjects])
+  end
+
 
 end

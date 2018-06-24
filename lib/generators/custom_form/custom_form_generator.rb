@@ -91,6 +91,8 @@ class CustomFormGenerator < Rails::Generators::NamedBase
   def add_mail_template
     template "app/views/alchemy/ajax_forms_mailer/_generic_form.html.erb.tt",
              "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}.mjml.erb"
+    template "app/views/alchemy/ajax_forms_mailer/_generic_user_form.html.erb.tt",
+             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}_user.mjml.erb"
   end
 
   desc "Add element configuration"
@@ -106,6 +108,12 @@ class CustomFormGenerator < Rails::Generators::NamedBase
   - name: recipient_notification
     type: EssenceText
     default: "example@example.it"
+  - name: send_only
+    type: EssenceBoolean
+  - name: send_staff
+    type: EssenceBoolean
+  - name: send_user
+    type: EssenceBoolean
     element
 
   end

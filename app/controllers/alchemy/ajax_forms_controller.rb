@@ -6,10 +6,11 @@ module Alchemy
       @object = base_class.new permitted_resource_attributes
       if verify_recaptcha(model: @object) && @object.valid?
         #registro dati, invio email
+        unless @object.send_only?
         @object.save
+        end
         @object.mailer.deliver
-        # registro il successo dell'esecuzione
-        @object.sended!
+
         render formats: :json
       else
         render formats: :json, status: :not_acceptable
