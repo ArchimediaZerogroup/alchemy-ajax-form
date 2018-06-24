@@ -78,7 +78,7 @@ class CustomFormGenerator < Rails::Generators::NamedBase
       end
 
       append_to_file file do
-        "Alchemy.register_ability(#{name.singularize.classify}Ability)"
+        "\nAlchemy.register_ability(#{name.singularize.classify}Ability)\n"
       end
 
     end
@@ -113,7 +113,7 @@ class CustomFormGenerator < Rails::Generators::NamedBase
   - name: send_staff
     type: EssenceBoolean
   - name: send_user
-    type: EssenceBoolean
+    type: EssenceBoolean\n
     element
 
   end
@@ -127,20 +127,20 @@ class CustomFormGenerator < Rails::Generators::NamedBase
     if File.exist?(routes_path) and File.readlines(routes_path).grep(/namespace :admin do/).count > 0
 
       insert_into_file routes_path, :after => "namespace :admin do\n" do
-        "resources :#{name.underscore.pluralize}\n"
+        "\nresources :#{name.underscore.pluralize}\n"
 
       end
 
-      route "resources :#{name.underscore.pluralize}\n"
+      route "\nresources :#{name.underscore.pluralize}\n"
 
 
     else
       route <<-route
-namespace :admin do
+\nnamespace :admin do
  resources :#{name.underscore.pluralize}
  
 end
-resources :#{name.underscore.pluralize} , only: [:create]
+resources :#{name.underscore.pluralize} , only: [:create]\n
       route
 
     end
