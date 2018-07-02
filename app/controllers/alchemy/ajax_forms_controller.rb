@@ -9,7 +9,7 @@ module Alchemy
         unless @object.send_only?
         @object.save
         end
-        @object.mailer.deliver
+        @object.mail_deliver
 
         render formats: :json
       else

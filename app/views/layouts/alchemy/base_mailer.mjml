@@ -1,31 +1,23 @@
 <mjml>
-
-<mj-head>
-<mj-font name="Open Sans" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
-</mj-head>
-  <mj-body>
-    <mj-container background-color="#F4F4F4" color="#55575d" font-family="Arial, sans-serif">
-      <mj-section background-color="#000000" background-repeat="no-repeat" text-align="center" vertical-align="top">
-        <mj-column>
-          <mj-image align="center" border="none" padding-bottom="30px" padding="10px 25px" src="<%#= asset_path "logo_mail.png"  %>" target="_blank" title="" width="180px"></mj-image>
-          <mj-text align="left" color="#55575d" font-family="Arial, sans-serif" font-size="13px" line-height="22px" padding-bottom="0px" padding-top="0px" padding="10px 25px">
-
-          </mj-text>
-        </mj-column>
-      </mj-section>
-      <mj-section background-color="#ffffff" background-repeat="no-repeat" text-align="center" vertical-align="top" padding="0 0 0 0">
-        <%= yield %>
-      </mj-section>
-      <mj-section background-color="#000000" background-repeat="no-repeat" text-align="center" vertical-align="top" padding-bottom="20px" padding="0 0 0 0">
-        <mj-column>
-
-          <mj-text align="left" color="#55575d" font-family="Arial, sans-serif" font-size="13px" line-height="22px" padding-bottom="0px" padding-top="5px" padding="10px 25px">
-            <p style="line-height: 16px; text-align: center; margin: 10px 0;font-size:12px;color:#ffffff;font-family:'Times New Roman',Helvetica,Arial,sans-serif">
-
-            </p>
-          </mj-text>
-        </mj-column>
-      </mj-section>
-    </mj-container>
+  <mj-head>
+    <mj-font name="Open Sans" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans"></mj-font>
+  </mj-head>
+  <mj-body background-color="#F4F4F4" color="#55575d" font-family="Arial, sans-serif">
+    <mj-section background-color="#333b51" background-repeat="no-repeat" text-align="center" vertical-align="top">
+      <mj-column>
+        <mj-text align="left" color="#eca96e" font-family="Arial, sans-serif" font-size="13px" line-height="22px" padding-bottom="0px" padding-top="0px" padding="10px 25px"></mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#ffffff" background-repeat="no-repeat" text-align="center" vertical-align="top" padding="0 0 0 0">
+    <%= yield %>
+    </mj-section>
+    <mj-section background-color="#333b51" background-repeat="no-repeat" text-align="center" vertical-align="top" padding-bottom="20px" padding="0 0 0 0">
+      <mj-column>
+        <mj-text align="left" color="#eca96e" font-family="Arial, sans-serif" font-size="13px" line-height="22px" padding-bottom="0px" padding-top="5px" padding="10px 25px">
+          <p style="line-height: 16px; text-align: center; margin: 10px 0;font-size:12px;color:#eca96e;font-family:'Times New Roman',Helvetica,Arial,sans-serif">
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
   </mj-body>
 </mjml>

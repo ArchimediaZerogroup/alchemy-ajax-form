@@ -21,5 +21,6 @@ Alchemy.register_ability(<%= name.singularize.classify%>Ability)
 module Alchemy
 
 EMAIL_NOTIFY= "example@example.it"
+EMAIL_NOTIFY_FROM = "no-reply@example.it"
 
 end

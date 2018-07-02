@@ -90,9 +90,9 @@ class CustomFormGenerator < Rails::Generators::NamedBase
   desc "Add email template"
   def add_mail_template
     template "app/views/alchemy/ajax_forms_mailer/_generic_form.html.erb.tt",
-             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}.mjml.erb"
+             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}.mjml"
     template "app/views/alchemy/ajax_forms_mailer/_generic_user_form.html.erb.tt",
-             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}_user.mjml.erb"
+             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}_user.mjml"
   end
 
   desc "Add element configuration"
@@ -157,7 +157,7 @@ resources :#{name.underscore.pluralize} , only: [:create]\n
   desc "Run migration and install mjml and create alchemy elements"
   def run_scripts
     rake("db:migrate")
-    run "npm install mjml"
+    #run "npm install mjml"
     generate("alchemy:elements","--skip")
   end
 

@@ -22,7 +22,7 @@ module Alchemy
     validates_format_of :email, :with => /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
                         if: -> {respond_to? :email}
 
-    #Mi serve per memorizzare l'elemento alchemy da cui è partita la form, in modo da poter idetificare la mail del destinatario
+    #with alchemy element can retrieve settings of form (ex. recipient_notification)
     attr_accessor :alcm_element
 
     before_save -> {self.language = Alchemy::Language.current}
@@ -45,12 +45,12 @@ module Alchemy
       false
     end
 
-    def mailer
+    def mail_deliver
       if send_to_staff?
-        AjaxFormsMailer.notify_message(self)
+        AjaxFormsMailer.notify_message(self).deliver_now
       end
       if send_to_user?
-        AjaxFormsMailer.notify_message_user(self)
+        AjaxFormsMailer.notify_message_user(self).deliver_now
       end
     end
 
@@ -59,7 +59,7 @@ module Alchemy
     end
 
     def emails_recipient
-      element_alchemy.content_by_name(:email_destinatario_notifica).essence.body
+      element_alchemy.content_by_name(:recipient_notification).essence.body
     rescue
       Alchemy::EMAIL_NOTIFY
     end
