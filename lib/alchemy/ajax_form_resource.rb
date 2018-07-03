@@ -3,12 +3,7 @@ module Alchemy
 
 
     def attributes
-      attr = (super + model.columns.collect {|col|
-        {
-            name: col.name,
-            type: :string
-        }
-      }).reject {|c| [:check_privacy].include?(c[:name].to_sym)}
+      attr = super.reject {|c| [:check_privacy,:language_id].include?(c[:name].to_sym)}
 
       attr += [{
                    name: :language,
