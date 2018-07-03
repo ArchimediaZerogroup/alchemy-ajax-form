@@ -1,5 +1,5 @@
 # Alchemy::Ajax::Form
-Short description and motivation.
+A gem for semplify form creations in alchemy.
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -40,12 +40,12 @@ Configure element in layoutpage
 
 Restart Server
 
-###How use without generator
+### How use without generator
 If you don't wont use the generator you have to follow these steps:
 
 Let's assume we want to create the form "ContactForm"
 
-####Create Admin Controller
+#### Create Admin Controller
 
 Create Admin::ContactFormsController (/app/controllers/admin/contact_forms_controller.rb)
 
@@ -55,7 +55,7 @@ class Admin::ContactFormsController < Alchemy::Admin::AjaxFormsController
 end
 ```
 
-####Create Controller
+#### Create Controller
 Create ContactFormsController (/app/controllers/admin/contact_forms_controller.rb)
 
 ```ruby
@@ -64,7 +64,7 @@ class ContactFormsController < Alchemy::AjaxFormsController
 end
 ```
 
-####Create Resource
+#### Create Resource
 Create ContactFormResource (app/lib/contact_form_resource.rb)
 
 ```ruby
@@ -73,7 +73,7 @@ class ContactFormResource < Alchemy::AjaxFormResource
 end
 ```
 
-####Create Model
+#### Create Model
 Create ContactForm (app/models/contact_form.rb)
 
 ```ruby
@@ -94,7 +94,7 @@ class ContactForm < Alchemy::AjaxForm
 end
 ```
 
-####Create Ability
+#### Create Ability
 Create ContactFormAbility (app/models/contact_form_ability.rb)
 
 ```ruby
@@ -115,7 +115,7 @@ class ContactFormAbility
 end
 ```
 
-####Create Migration
+#### Create Migration
 Create CreateContactForm (db/migrate/%Y%m%d%H%M%Screate_contact_form.rb)
 
 ```ruby
@@ -133,7 +133,7 @@ class CreateContactForm < ActiveRecord::Migration[5.2]
 end
 ```
 
-####Create Element Configuration
+#### Create Element Configuration
 Insert into file "config/alchemy/elements.yml"
 
 ```yaml
@@ -156,7 +156,7 @@ Insert into file "config/alchemy/elements.yml"
 
 ```
 
-####Create Element View
+#### Create Element View
 Create contact form view "app/views/alchemy/elements/_contact_form_view.html.erb"
 
 ```erbruby
@@ -207,7 +207,7 @@ Create contact form view "app/views/alchemy/elements/_contact_form_view.html.erb
 <%- end -%>
 ```
 
-####Create or add entry to initializer
+#### Create or add entry to initializer
 
 Create or edit alchemy_ahax_forms initializer ( config/initializers/alchemy_ajax_forms.rb)
 
@@ -253,7 +253,7 @@ and ability
 Alchemy.register_ability(ContactFormAbility)
 ```
 
-####Create Mail Template
+#### Create Mail Template
 
 Create email template ()app/views/alchemy/ajax_forms_mailer/_contact_form.mjml)
 Create email template for user notification ()app/views/alchemy/ajax_forms_mailer/_contact_form_user.mjml)
@@ -269,7 +269,7 @@ Create email template for user notification ()app/views/alchemy/ajax_forms_maile
 </mj-column>
 ```
 
-####Add Routes
+#### Add Routes
 Add right routes
 
 ```ruby
@@ -280,7 +280,7 @@ end
 resources :contact_forms , only: [:create]
 ```
 
-####Require assets
+#### Require assets
 Add to app/assets/javascripts/application.js
 
 ```ruby
@@ -288,19 +288,19 @@ Add to app/assets/javascripts/application.js
 //= require ajax_forms
 ```
 
-###Run Migration
+### Run Migration
 Run migration with rake task
 
-```ruby
-bin/rake db:migrate
+```bash
+$ bin/rake db:migrate
 ```
 
 Configure element in layoutpage
 
 Restart Server
              
-##Translations
-
+## Translations
+Remember to check translations
 
 
 ## Contributing
