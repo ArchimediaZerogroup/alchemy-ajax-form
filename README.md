@@ -5,7 +5,7 @@ Short description and motivation.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'alchemy-ajax-form'
+gem 'alchemy-ajax-form', github: "ArchimediaZerogroup/alchemy-ajax-form"
 ```
 
 And then execute:
