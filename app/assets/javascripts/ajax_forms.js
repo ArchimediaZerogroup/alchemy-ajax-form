@@ -31,12 +31,9 @@
 
 
     $(document).on("ajax:success", ".ajax_forms", function(event) {
-        var response;
-        var xhr;
-        var status;
-
-        [response, status, xhr] = event.detail
-
+        var response = event.detail[0];
+        var xhr = event.detail[2];
+        var status= event.detail[1];
 
 
         var form = this;
@@ -51,10 +48,9 @@
 
     $(document).on("ajax:error",".ajax_forms", function (event) {
         
-        var response;
-        var xhr;
-        var status;
-        [response, status, xhr] = event.detail
+        var response = event.detail[0];
+        var xhr = event.detail[1];
+        var status = event.detail[2];
 
         var form = this;
         var message_box = $(form).parent().find(".messages")[0];
