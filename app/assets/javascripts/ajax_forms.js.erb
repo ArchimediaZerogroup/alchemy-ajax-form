@@ -73,12 +73,12 @@
                 var form = this;
                 var action = $(this).attr("action");
                 var method = $(this).attr("method");
+                var submit_button = $(form).find(".submit").last();
 
-                var recaptcha_submit_button = $(form).find(".invisible_recaptcha");
 
-                if($(recaptcha_submit_button).length > 0 && !recaptha_disabled){
+                if(!recaptha_disabled){
                     var container_div = $('<div class="invisible_recaptcha_container"></div>');
-                    $(recaptcha_submit_button).before(container_div);
+                    $(submit_button).before(container_div);
 
                     widget_id = grecaptcha.render(container_div[0], {
                         'sitekey': '<%= Recaptcha.configuration.site_key! %>',
@@ -100,10 +100,9 @@
                 var form = $(event.target).closest("form");
                 var action = $(form).attr("action");
                 var method = $(form).attr("method");
-                var recaptcha_submit_button = $(form).find(".invisible_recaptcha");
 
 
-                if($(recaptcha_submit_button).length > 0 && !recaptha_disabled){
+                if(!recaptha_disabled){
                     grecaptcha.execute(widget_id)
                 }else{
                     submit_funtion(form,method,action);
