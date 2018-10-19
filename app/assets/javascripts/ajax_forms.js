@@ -49,8 +49,8 @@
     $(document).on("ajax:error",".ajax_forms", function (event) {
         
         var response = event.detail[0];
-        var xhr = event.detail[1];
-        var status = event.detail[2];
+        var xhr = event.detail[2];
+        var status = event.detail[1];
 
         var form = this;
         var message_box = $(form).parent().find(".messages")[0];
