@@ -1,0 +1,121 @@
+(function ($) {
+
+    var widget_id = null
+
+
+    var print_results = function(element,result){
+        if (result instanceof Array ){
+            var resp = "";
+
+            $.each(result,function(index,value){
+
+                resp+= "<span>"+value+"</span>";
+
+            });
+            $(element).html(resp);
+        }else{
+            $(element).html(result)
+        }
+    };
+
+    var add_errors= function(errors){
+
+        $.each(errors,function(name,value){
+
+            var input= $("input[name*='"+name+"']");
+
+            $(input).addClass("invalid");
+            $(input).parent().append("<span class='error-message'>"+value+"</span>");
+
+
+
+        });
+    };
+
+    var submit_funtion = function(form, method, action){
+        $.ajax({
+            method: method,
+            url: action,
+            dataType: "json",
+            data: $(form).serialize(),
+            success: function(response, status, xhr){
+
+                var message_box = $(form).parent().find(".messages")[0];
+                print_results(message_box,response.messages);
+                $(message_box).addClass('ok');
+                $(form).hide();
+
+            },
+            error: function( xhr, status, errorThrown){
+                var response = JSON.parse(xhr.responseText);
+                var message_box = $(form).parent().find(".messages")[0];
+                print_results(message_box,response.messages);
+                $(message_box).addClass('ko');
+                add_errors(response.errors);
+
+            }
+        });
+    }
+
+    load_invisible_recaptcha = function(){
+
+        var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
+
+        $(document).ready(function(){
+
+
+            $(document).on("ajax:before",".ajax_forms", function (event) {
+                event.preventDefault();
+            });
+
+            $(".ajax_forms").each(function(element,index){
+
+                var form = this;
+                var action = $(this).attr("action");
+                var method = $(this).attr("method");
+
+                var recaptcha_submit_button = $(form).find(".invisible_recaptcha");
+
+                if($(recaptcha_submit_button).length > 0 && !recaptha_disabled){
+                    var container_div = $('<div class="invisible_recaptcha_container"></div>');
+                    $(recaptcha_submit_button).before(container_div);
+
+                    widget_id = grecaptcha.render(container_div[0], {
+                        'sitekey': '<%= Recaptcha.configuration.site_key! %>',
+                        'badge': 'inline',
+                        'size': 'invisible',
+                        'callback': function () {
+                            submit_funtion(form,method,action);
+                        }
+                    });
+
+                }
+
+
+            });
+
+            $(document).on("click", ".ajax_forms input[type='submit']", function(event){
+
+                event.preventDefault();
+                var form = $(event.target).closest("form");
+                var action = $(form).attr("action");
+                var method = $(form).attr("method");
+                var recaptcha_submit_button = $(form).find(".invisible_recaptcha");
+
+
+                if($(recaptcha_submit_button).length > 0 && !recaptha_disabled){
+                    grecaptcha.execute(widget_id)
+                }else{
+                    submit_funtion(form,method,action);
+                }
+
+
+            });
+
+        });
+    };
+    $.getScript("https://www.google.com/recaptcha/api.js?onload=load_invisible_recaptcha&render=explicit")
+
+
+
+})(jQuery);
