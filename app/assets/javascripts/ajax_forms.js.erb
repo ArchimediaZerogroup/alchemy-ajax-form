@@ -94,7 +94,7 @@
 
             });
 
-            $(document).on("click", ".ajax_forms", function(event){
+            $(document).on("click", ".ajax_forms input[type='submit']", function(event){
 
                 event.preventDefault();
                 var form = $(event.target).closest("form");
