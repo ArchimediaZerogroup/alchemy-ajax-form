@@ -13,7 +13,7 @@
     <div class="messages"></div>
 
 
-    <%%= form_for(@<%= name.underscore.singularize %>, url: main_app.<%= name.underscore.pluralize %>_path, method: :post, remote: true, multipart: true,html:{class: "ajax_forms"}) do |f| %>
+    <%%= form_for(@<%= name.underscore.singularize %>, url: main_app.<%= name.underscore.pluralize %>_path, method: :post, multipart: true,html:{class: "ajax_forms"}) do |f| %>
       <%%= f.hidden_field :alcm_element %>
       <div class="row">
       <% attributes.each do |attr| %>
@@ -38,7 +38,7 @@
 
 
       <div class="submit">
-      <%%= f.submit t(:submit) %>
+      <%%= f.submit t(:submit), data: {disable_with: false} %>
       </div>
 
     <%% end %>
