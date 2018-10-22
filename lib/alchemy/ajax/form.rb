@@ -2,7 +2,8 @@
 require "alchemy_cms"
 require "js-routes"
 require "recaptcha/rails"
-
+require "mjml-rails"
+require "recaptcha"
 require "alchemy/ajax/form/engine"
 
 module Alchemy
