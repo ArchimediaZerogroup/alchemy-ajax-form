@@ -53,12 +53,6 @@
                 $(message_box).addClass('ko');
                 add_errors(response.errors);
 
-            },
-            complete: function(){
-                console.log("enrtro")
-                var button = $(form).find("input[type='submit']")
-                console.log(button)
-                button.removeAttr('disabled')
             }
         });
     }
@@ -70,9 +64,6 @@
         $(document).ready(function(){
 
 
-            $(document).on("ajax:before",".ajax_forms", function (event) {
-                event.preventDefault();
-            });
 
             $(".ajax_forms").each(function(element,index){
 
@@ -100,10 +91,10 @@
 
             });
 
-            $(document).on("click", ".ajax_forms input[type='submit']", function(event){
+            $(document).on("submit", ".ajax_forms", function(event){
 
                 event.preventDefault();
-                var form = $(event.target).closest("form");
+                var form = $(event.target);//.closest("form");
                 var action = $(form).attr("action");
                 var method = $(form).attr("method");
 

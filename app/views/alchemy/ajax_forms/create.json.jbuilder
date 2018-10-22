@@ -1,4 +1,4 @@
-if @object.valid?
+if @object.errors.empty?
   json.messages t(:form_sended_succesfully)
 else
   json.messages @object.errors.full_messages
