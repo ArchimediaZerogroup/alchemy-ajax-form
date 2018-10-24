@@ -53,6 +53,10 @@
                 $(message_box).addClass('ko');
                 add_errors(response.errors);
 
+            },
+            complete: function(){
+                grecaptcha.reset();
+                $(form).find("input[type='submit']").attr("disabled", false);
             }
         });
     }
@@ -94,9 +98,12 @@
             $(document).on("submit", ".ajax_forms", function(event){
 
                 event.preventDefault();
+
                 var form = $(event.target);//.closest("form");
                 var action = $(form).attr("action");
                 var method = $(form).attr("method");
+                // disable all submit buttons
+                $(form).find("input[type='submit']").attr("disabled", true)
 
 
                 if(!recaptha_disabled){
