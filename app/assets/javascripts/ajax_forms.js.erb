@@ -1,6 +1,7 @@
 (function ($) {
 
     var widget_id = null
+    var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
 
     var print_results = function(element,result){
@@ -55,7 +56,9 @@
 
             },
             complete: function(){
-                grecaptcha.reset();
+                if(!recaptha_disabled) {
+                    grecaptcha.reset();
+                }
                 $(form).find("input[type='submit']").attr("disabled", false);
             }
         });
@@ -63,7 +66,6 @@
 
     load_invisible_recaptcha = function(){
 
-        var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
         $(document).ready(function(){
 
