@@ -1,6 +1,7 @@
 (function ($) {
 
     var widget_id = null
+    var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
 
     var print_results = function(element,result){
@@ -12,10 +13,14 @@
                 resp+= "<span>"+value+"</span>";
 
             });
-            $(element).html(resp);
+
         }else{
-            $(element).html(result)
+            resp = result
         }
+
+        resp = '<div class="default_message">' + resp + '</div>';
+        $(element).append(resp);
+
     };
 
     var add_errors= function(errors){
@@ -32,6 +37,19 @@
         });
     };
 
+    var clear_deafult_message = function(form){
+        var message_box = $(form).parent().find(".messages")[0];
+        var default_message = $(message_box).find(".default_message");
+        var custom_message = $(message_box).find(".custom_message");
+        if($(default_message).length > 0){
+            $(default_message).remove();
+        }
+
+        if($(custom_message).length == 0){
+            $(message_box).html("");
+        }
+    }
+
     var submit_funtion = function(form, method, action){
         $.ajax({
             method: method,
@@ -40,8 +58,11 @@
             data: $(form).serialize(),
             success: function(response, status, xhr){
 
+                clear_deafult_message(form);
                 var message_box = $(form).parent().find(".messages")[0];
-                print_results(message_box,response.messages);
+                if(!$(message_box).find(".custom_message").length > 0){
+                    print_results(message_box,response.messages);
+                }
                 $(message_box).addClass('ok');
                 $(form).hide();
 
@@ -49,13 +70,16 @@
             error: function( xhr, status, errorThrown){
                 var response = JSON.parse(xhr.responseText);
                 var message_box = $(form).parent().find(".messages")[0];
+                clear_deafult_message(form);
                 print_results(message_box,response.messages);
                 $(message_box).addClass('ko');
                 add_errors(response.errors);
 
             },
             complete: function(){
-                grecaptcha.reset();
+                if(!recaptha_disabled) {
+                    grecaptcha.reset();
+                }
                 $(form).find("input[type='submit']").attr("disabled", false);
             }
         });
@@ -63,7 +87,6 @@
 
     load_invisible_recaptcha = function(){
 
-        var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
         $(document).ready(function(){
 
