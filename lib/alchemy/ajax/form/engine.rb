@@ -3,7 +3,7 @@ module Alchemy
     module Form
       class Engine < ::Rails::Engine
 
-        isolate_namespace Alchemy
+        isolate_namespace Alchemy::Ajax::Form
 
         config.autoload_paths << config.root.join('lib')
 
