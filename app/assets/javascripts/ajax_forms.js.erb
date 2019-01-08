@@ -51,11 +51,14 @@
     }
 
     var submit_funtion = function(form, method, action){
+        var formdata = new FormData($(form)[0])
         $.ajax({
             method: method,
             url: action,
             dataType: "json",
-            data: $(form).serialize(),
+            data: formdata ,
+            contentType: false,
+            processData: false,
             success: function(response, status, xhr){
 
                 clear_deafult_message(form);
