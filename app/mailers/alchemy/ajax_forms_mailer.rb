@@ -3,6 +3,10 @@ module Alchemy
 
     layout "alchemy/base_mailer"
 
+    add_template_helper(Alchemy::UrlHelper)
+
+
+
 
     def notify_message(r)
       @rec = r
