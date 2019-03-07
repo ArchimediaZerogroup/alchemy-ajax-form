@@ -2,6 +2,8 @@ module Alchemy
   class AjaxFormsMailer < ApplicationMailer
 
     layout "alchemy/base_mailer"
+    
+    add_template_helper(Alchemy::UrlHelper)
 
 
     def notify_message(r)
