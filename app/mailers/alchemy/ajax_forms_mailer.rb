@@ -2,7 +2,7 @@ module Alchemy
   class AjaxFormsMailer < ApplicationMailer
 
     layout "alchemy/base_mailer"
-    
+    include Alchemy::ConfigurationMethods
     add_template_helper(Alchemy::UrlHelper)
 
 
