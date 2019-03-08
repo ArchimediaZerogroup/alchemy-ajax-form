@@ -3,7 +3,7 @@ module Alchemy
 
     layout "alchemy/base_mailer"
     include Alchemy::ConfigurationMethods
-    add_template_helper(Alchemy::UrlHelper)
+    add_template_helper(Alchemy::PagesHelper)
 
 
     def notify_message(r)
