@@ -51,6 +51,11 @@
     }
 
     var submit_funtion = function(form, method, action){
+        //workaround per fix problema formdata con inernet explorer
+        if ($(form).find("[name='_dontcare']").length < 1) {
+            $(form).append("<input type=\"hidden\" name=\"_dontcare\">")
+        }
+
         var formdata = new FormData($(form)[0])
         $.ajax({
             method: method,
@@ -123,7 +128,7 @@
 
             $(document).on("submit", ".ajax_forms", function(event){
 
-                event.preventDefault();
+                event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 
                 var form = $(event.target);//.closest("form");
                 var action = $(form).attr("action");
