@@ -1,8 +1,7 @@
 (function ($) {
 
     var widget_id = null
-    var recaptha_disabled =
-    <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
+    var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
 
     var print_results = function (element, result) {
