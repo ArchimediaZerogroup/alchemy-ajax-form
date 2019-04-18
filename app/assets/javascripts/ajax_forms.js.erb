@@ -94,8 +94,7 @@
 
         $(form).trigger("successed");
         $(message_box).addClass('ok');
-        hide_loader(form);
-        $(form).hide();
+        $(form).trigger("reset");
 
       },
       error: function (xhr, status, errorThrown) {
@@ -104,7 +103,6 @@
         clear_deafult_message(form);
         print_results(message_box, response.messages);
         $(form).trigger("failed");
-        hide_loader(form);
         $(message_box).addClass('ko');
         add_errors(form, response.errors);
 
