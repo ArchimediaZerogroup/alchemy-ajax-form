@@ -10,7 +10,8 @@ module Alchemy
 
     def notify_message(r)
       @rec = r
-      mail(from: Alchemy::EMAIL_NOTIFY_FROM ,to: r.emails_recipient, subject: r.notify_subject)do |format|
+      reply_to = @rec.email if @rec.respond_to? :email
+      mail(from: Alchemy::EMAIL_NOTIFY_FROM ,to: r.emails_recipient, subject: r.notify_subject, reply_to: reply_to)do |format|
         format.mjml { render "notify_message", locals: { recipient: @rec} }
       end
     end
