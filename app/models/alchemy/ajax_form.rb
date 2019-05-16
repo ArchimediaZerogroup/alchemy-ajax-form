@@ -20,7 +20,7 @@ module Alchemy
 
     validates :email, :presence => {allow_blank: false}, if: -> {respond_to? :email}
     validates_format_of :email, :with => /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
-                        if: -> {respond_to? :email}
+                        if: -> {respond_to? :email and !self.email.blank?}
 
     #with alchemy element can retrieve settings of form (ex. recipient_notification)
     attr_accessor :alcm_element
