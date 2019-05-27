@@ -14,7 +14,7 @@
     <mj-section background-color="#333b51" background-repeat="no-repeat" text-align="center" vertical-align="top" padding-bottom="20px" padding="0 0 0 0">
       <mj-column>
         <mj-text align="left" font-size="13px" line-height="22px" padding-bottom="0px" padding-top="5px" padding="10px 25px">
-          <p style="line-height: 16px; text-align: center; margin: 10px 0;font-size:12px;>
+          <p style="line-height: 16px; text-align: center; margin: 10px 0;font-size:12px;">
           </p>
         </mj-text>
       </mj-column>
