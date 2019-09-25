@@ -123,6 +123,7 @@
     $(document).ready(function () {
 
 
+
       $(".ajax_forms").each(function (element, index) {
 
         var form = this;
@@ -146,7 +147,7 @@
 
         }
 
-
+        $(form).children('.ajax_forms_loader').fadeOut();
       });
 
       $(document).on("submit", ".ajax_forms", function (event) {
