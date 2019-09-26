@@ -102,7 +102,7 @@
         var message_box = $(form).parent().find(".messages")[0];
         clear_deafult_message(form);
         print_results(message_box, response.messages);
-        $(form).trigger("failed");
+        $(form).trigger("failed", [xhr, status, errorThrown]);
         $(message_box).addClass('ko');
         add_errors(form, response.errors);
 
