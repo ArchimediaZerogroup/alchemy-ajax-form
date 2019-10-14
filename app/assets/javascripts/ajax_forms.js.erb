@@ -1,6 +1,5 @@
 (function ($) {
 
-  var widget_id = null
   var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
 
@@ -136,7 +135,7 @@
           var container_div = $('<div class="invisible_recaptcha_container"></div>');
           $(submit_button).before(container_div);
 
-          widget_id = grecaptcha.render(container_div[0], {
+          var widget_id = grecaptcha.render(container_div[0], {
             'sitekey': '<%= Recaptcha.configuration.site_key! %>',
             'badge': 'inline',
             'size': 'invisible',
@@ -144,6 +143,8 @@
               submit_function(form, method, action);
             }
           });
+
+          $(form).data("widget-id",widget_id)
 
         }
 
@@ -157,6 +158,7 @@
         var form = $(event.target);//.closest("form");
         var action = $(form).attr("action");
         var method = $(form).attr("method");
+        var widget_id = $(form).data("widget-id");
         // disable all submit buttons
         $(form).find("input[type='submit']").attr("disabled", true)
 
