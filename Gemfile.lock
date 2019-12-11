@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    alchemy-ajax-form (1.0.0)
+    alchemy-ajax-form (1.0.1)
       alchemy_cms (~> 4.0)
       jquery-rails (~> 4.0)
       js-routes (~> 1.0)
