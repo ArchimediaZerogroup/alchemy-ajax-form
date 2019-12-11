@@ -10,6 +10,9 @@ module Alchemy
   module Ajax
     module Form
       # Your code goes here...
+      mattr_accessor :enable_mjml
+      @@enable_mjml = true
+
     end
   end
 end
