@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 5.0"
   s.add_dependency "js-routes", "~>1.0"
+  s.add_dependency "sass-rails", "~> 5.0"
   s.add_dependency 'alchemy_cms', '~> 4.0'
   s.add_dependency 'recaptcha','~> 4.7'
   s.add_dependency 'mjml-rails','~> 4.1'
