@@ -302,9 +302,12 @@ Restart Server
 ## Translations
 Remember to check translations
 
-
-## Contributing
-Contribution directions go here.
+## Disable MJML
+If you don't want mjml, insert in an initializer 
+```ruby
+Alchemy::Ajax::Form.enable_mjml= false
+```
+n.b. Disable mjml before launching the generator, otherwise email templates will be generated with mjml
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
