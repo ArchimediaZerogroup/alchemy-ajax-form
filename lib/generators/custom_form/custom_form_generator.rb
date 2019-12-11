@@ -89,10 +89,12 @@ class CustomFormGenerator < Rails::Generators::NamedBase
 
   desc "Add email template"
   def add_mail_template
+    ext = "html.erb"
+    ext = "mjml" if Alchemy::Ajax::Form.enable_mjml
     template "app/views/alchemy/ajax_forms_mailer/_generic_form.html.erb.tt",
-             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}.mjml"
+             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}.#{ext}"
     template "app/views/alchemy/ajax_forms_mailer/_generic_user_form.html.erb.tt",
-             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}_user.mjml"
+             "app/views/alchemy/ajax_forms_mailer/_#{name.underscore.singularize}_user.#{ext}"
   end
 
   desc "Add element configuration"

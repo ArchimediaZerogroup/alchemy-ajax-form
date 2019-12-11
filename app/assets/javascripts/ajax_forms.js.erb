@@ -1,40 +1,77 @@
 (function ($) {
 
-    var widget_id = null
-    var recaptha_disabled = <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
+    var recaptha_disabled =
+    <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
 
-    var print_results = function(element,result){
-        if (result instanceof Array ){
+    var print_results = function (element, result) {
+        if (result instanceof Array) {
             var resp = "";
 
-            $.each(result,function(index,value){
+            $.each(result, function (index, value) {
 
-                resp+= "<span>"+value+"</span>";
+                resp += "<span>" + value + "</span>";
 
             });
-            $(element).html(resp);
-        }else{
-            $(element).html(result)
+
+        } else {
+            resp = result
         }
+
+        resp = '<div class="default_message">' + resp + '</div>';
+        $(element).append(resp);
+
     };
 
-    var add_errors= function(errors){
+    var add_errors = function (form, errors) {
 
-        $.each(errors,function(name,value){
+        $.each(errors, function (name, value) {
 
-            var input= $("input[name*='"+name+"']");
+            var input = $(form).find("[name*='" + name + "']");
+
 
             $(input).addClass("invalid");
-            $(input).parent().append("<span class='error-message'>"+value+"</span>");
 
-
+            if ($(input).parent().children('.error-message').length == 0) {
+                $(input).parent().append("<span class='error-message'>" + value + "</span>");
+            } else {
+                $('.error-message').show();
+            }
 
         });
     };
 
-    var submit_funtion = function(form, method, action){
-        //workaround per fix problema formdata con inernet explorer
+
+    var clear_deafult_message = function (form) {
+        var message_box = $(form).parent().find(".messages")[0];
+        var default_message = $(message_box).find(".default_message");
+        var custom_message = $(message_box).find(".custom_message");
+        if ($(default_message).length > 0) {
+            $(default_message).remove();
+        }
+
+        if ($(custom_message).length == 0) {
+            $(message_box).html("");
+        }
+    }
+
+
+    var add_loader = function (form) {
+        if ($(form).children('.ajax_forms_loader').length == 0) {
+            $(form).append('<div class="ajax_forms_loader"> <i class="fa fa-circle-o-notch fa-spin"></i> </div>');
+        } else {
+            $(form).children('.ajax_forms_loader').fadeIn();
+        }
+    }
+
+    var hide_loader = function (form) {
+        $(form).children('.ajax_forms_loader').fadeOut();
+    }
+
+    var submit_function = function (form, method, action) {
+        $(form).trigger("submitted");
+        add_loader(form);
+
         if ($(form).find("[name='_dontcare']").length < 1) {
             $(form).append("<input type=\"hidden\" name=\"_dontcare\">")
         }
@@ -44,42 +81,49 @@
             method: method,
             url: action,
             dataType: "json",
-            data: formdata ,
+            data: formdata,
             contentType: false,
             processData: false,
-            success: function(response, status, xhr){
+            success: function (response, status, xhr) {
 
+                clear_deafult_message(form);
                 var message_box = $(form).parent().find(".messages")[0];
-                print_results(message_box,response.messages);
+                if (!$(message_box).find(".custom_message").length > 0) {
+                    print_results(message_box, response.messages);
+                }
+
+                $(form).trigger("successed");
                 $(message_box).addClass('ok');
-                $(form).hide();
+                $(form).trigger("reset");
 
             },
-            error: function( xhr, status, errorThrown){
+            error: function (xhr, status, errorThrown) {
                 var response = JSON.parse(xhr.responseText);
                 var message_box = $(form).parent().find(".messages")[0];
-                print_results(message_box,response.messages);
+                clear_deafult_message(form);
+                print_results(message_box, response.messages);
+                $(form).trigger("failed", [xhr, status, errorThrown]);
                 $(message_box).addClass('ko');
-                add_errors(response.errors);
+                add_errors(form, response.errors);
 
             },
-            complete: function(){
-                if(!recaptha_disabled) {
+            complete: function () {
+                if (!recaptha_disabled) {
                     grecaptcha.reset();
                 }
                 $(form).find("input[type='submit']").attr("disabled", false);
+                hide_loader(form);
             }
         });
     }
 
-    load_invisible_recaptcha = function(){
+    load_invisible_recaptcha = function () {
 
 
-        $(document).ready(function(){
+        $(document).ready(function () {
 
 
-
-            $(".ajax_forms").each(function(element,index){
+            $(".ajax_forms").each(function (element, index) {
 
                 var form = this;
                 var action = $(this).attr("action");
@@ -87,42 +131,50 @@
                 var submit_button = $(form).find(".submit").last();
 
 
-                if(!recaptha_disabled){
+                if (!recaptha_disabled) {
                     var container_div = $('<div class="invisible_recaptcha_container"></div>');
                     $(submit_button).before(container_div);
 
-                    widget_id = grecaptcha.render(container_div[0], {
+                    var widget_id = grecaptcha.render(container_div[0], {
                         'sitekey': '<%= Recaptcha.configuration.site_key! %>',
                         'badge': 'inline',
                         'size': 'invisible',
                         'callback': function () {
-                            submit_funtion(form,method,action);
+                            submit_function(form, method, action);
                         }
                     });
 
+                    $(form).data("widget-id", widget_id)
+
                 }
 
-
+                $(form).children('.ajax_forms_loader').fadeOut();
             });
 
-            $(document).on("submit", ".ajax_forms", function(event){
+            $(document).on("submit", ".ajax_forms", function (event) {
 
                 event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 
                 var form = $(event.target);//.closest("form");
                 var action = $(form).attr("action");
                 var method = $(form).attr("method");
+                var widget_id = $(form).data("widget-id");
                 // disable all submit buttons
                 $(form).find("input[type='submit']").attr("disabled", true)
 
 
-                if(!recaptha_disabled){
+                if (!recaptha_disabled) {
                     grecaptcha.execute(widget_id)
-                }else{
-                    submit_funtion(form,method,action);
+                } else {
+                    submit_function(form, method, action);
                 }
 
 
+            });
+
+            $('.ajax_forms').on('change', '.invalid', function () {
+                $(this).removeClass("invalid");
+                $(this).parent().children('.error-message').hide();
             });
 
         });
@@ -130,5 +182,5 @@
     $.getScript("//www.google.com/recaptcha/api.js?onload=load_invisible_recaptcha&render=explicit")
 
 
-
 })(jQuery);
+
