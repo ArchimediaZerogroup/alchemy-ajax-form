@@ -288,6 +288,18 @@ Add to app/assets/javascripts/application.js
 //= require ajax_forms
 ```
 
+Add to vendor/assets/stylesheets/alchemy/admin/all.css
+
+```ruby
+ *= require alchemy/ajax/form/backend/custom_resource_show
+```
+
+Add to app/assets/stylesheets/application.css
+
+```ruby
+ *= require alchemy/ajax/form/style
+```
+
 ### Run Migration
 Run migration with rake task
 
