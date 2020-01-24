@@ -34,6 +34,9 @@ module Alchemy
         end
       end
 
+      def show
+      end
+
       protected
 
       def common_search_filter_includes
@@ -45,6 +48,11 @@ module Alchemy
             :filter,
             :page
         ].freeze
+      end
+
+      def load_resource
+        @resource = resource_handler.model.find(params[:id])
+        instance_variable_set("@#{resource_handler.resource_name}", @resource)
       end
 
 

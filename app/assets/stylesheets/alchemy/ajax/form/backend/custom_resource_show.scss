@@ -1,0 +1,21 @@
+.ajax_forms {
+  .alchemy-dialog {
+    max-width: 1080px !important;
+    width: 100% !important;
+
+    .attribute_row {
+      margin: 10px 0px;
+
+      .labelfield {
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .valuefield {
+        font-size: 15px;
+      }
+
+    }
+  }
+}

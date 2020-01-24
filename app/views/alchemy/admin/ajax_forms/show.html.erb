@@ -1,0 +1,12 @@
+
+<% resource_handler.attributes.each do |attribute| %>
+<div class="attribute_row">
+  <div class="labelfield">
+    <%= @resource.class.human_attribute_name(attribute[:name].to_sym) %>
+  </div>
+  <div class="valuefield">
+    <%= render_attribute(@resource, attribute) %>
+  </div>
+</div>
+
+<% end %>

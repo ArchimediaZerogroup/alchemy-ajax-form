@@ -1,0 +1,36 @@
+<tr class="<%= cycle('even', 'odd') %>">
+<% resource_handler.attributes.each do |attribute| %>
+  <td class="<%= attribute[:type] %> <%= attribute[:name] %>">
+  <% if attribute[:type] == :boolean %>
+    <%= resource.public_send(attribute[:name]) ? render_icon(:check) : nil %>
+  <% else %>
+    <%= render_attribute(resource, attribute) %>
+  <% end %>
+  </td>
+<% end %>
+  <td class="tools">
+  <% if can?(:destroy, resource) %>
+    <%= delete_button resource_path(resource, search_filter_params) %>
+  <% end %>
+  <% if can?(:edit, resource) %>
+    <%= link_to_dialog render_icon(:edit),
+      edit_resource_path(resource, search_filter_params),
+      {
+        title: Alchemy.t('Edit'),
+        size: resource_window_size
+      },
+      title: Alchemy.t('Edit') %>
+  <% end %>
+    <% if can?(:show, resource) %>
+      <%= link_to_dialog render_icon(:eye),
+                         resource_path(resource, search_filter_params),
+                         {
+                             title: Alchemy.t('Show'),
+                             size: resource_window_size,
+                             class: "pippo"
+                         },
+                         title: Alchemy.t('Show')
+                          %>
+    <% end %>
+  </td>
+</tr>
