@@ -154,12 +154,26 @@ resources :#{name.underscore.pluralize} , only: [:create]\n
     inject_into_file  "app/assets/javascripts/application.js" , before: '//= require_tree .' do
       "\n//= require jquery3\n//= require ajax_forms\n"
     end
+    inject_into_file  "vendor/assets/stylesheets/alchemy/admin/all.css" , before: '*= require_tree .' do
+      "\n*= require alchemy/ajax/form/backend/custom_resource_show\n"
+    end
+    inject_into_file  "app/assets/stylesheets/application.css" , before: '*= require_tree .' do
+      "\n*= require alchemy/ajax/form/style\n"
+    end
+    inject_into_file  "app/assets/stylesheets/application.css" , before: '*= require alchemy/ajax/form/style' do
+      "\n*= require @fortawesome/fontawesome-free/css/all\n"
+    end
+
+    inject_into_file  "app/assets/javascripts/application.js" , before: '//= require_tree .' do
+      "\n//= @fortawesome/fontawesome-free/js/all\n"
+    end
   end
 
   desc "Run migration and install mjml and create alchemy elements"
   def run_scripts
     rake("db:migrate")
     #run "npm install mjml"
+    run "yarn add @fortawesome/fontawesome-free"
     generate("alchemy:elements","--skip")
   end
 
