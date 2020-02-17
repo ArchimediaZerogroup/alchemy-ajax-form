@@ -27,7 +27,7 @@
 
         $.each(errors, function (name, value) {
 
-            var input = $(form).find("[name*='" + name + "']");
+            var input = $(form).find("*:not([type='hidden'])[name*='" + name + "']")
 
 
             $(input).addClass("invalid");
