@@ -5,7 +5,7 @@
         <%= @resource.class.human_attribute_name(attribute[:name].to_sym) %>
       </div>
       <div class="valuefield">
-        <%= render_attribute(@resource, attribute) %>
+        <%= render_attribute(@resource, attribute, truncate: 10000000) %>
       </div>
     </div>
   <% end %>
