@@ -1,5 +1,7 @@
 (function ($) {
 
+    $.getScript("//www.google.com/recaptcha/api.js?onload=load_invisible_recaptcha&render=explicit")
+
     var recaptha_disabled =
     <%= Recaptcha.configuration.skip_verify_env.include?(Rails.env.to_s ) %>
 
@@ -179,7 +181,6 @@
 
         });
     };
-    $.getScript("//www.google.com/recaptcha/api.js?onload=load_invisible_recaptcha&render=explicit")
 
 
 })(jQuery);
