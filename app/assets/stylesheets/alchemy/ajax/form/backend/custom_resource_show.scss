@@ -19,3 +19,41 @@
     }
   }
 }
+
+.resources-table-wrapper {
+  .search_panel {
+    position: fixed;
+    top: 127px;
+    background-color: #f7f7f7;
+    z-index: 2;
+    width: 100%;
+    padding: 15px 0px;
+
+  }
+
+  .search_fields_group {
+    width: 50%;
+
+    input[type="url"],
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    .select2-container,
+    .mce-tinymce,
+    .with-hint{
+      width: 85%;
+    }
+    .tinymce_container {
+      width: 85%;
+      float: left;
+    }
+    .input.boolean {
+      margin-left: 15%;
+    }
+
+    label {
+      width: 15%;
+    }
+  }
+}

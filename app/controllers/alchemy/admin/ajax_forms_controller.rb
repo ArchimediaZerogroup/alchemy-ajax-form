@@ -7,7 +7,7 @@ module Alchemy
       end
 
       def index
-        @query = resource_handler.model.ransack(search_filter_params[:q])
+        @query = resource_handler.model.joins(language: :site).ransack(search_filter_params[:q])
         items = @query.result
         items = items.order(created_at: :desc)
 
@@ -43,11 +43,15 @@ module Alchemy
         [
             # contrary to Rails' documentation passing an empty hash to permit all keys does not work
             {options: options_from_params.keys},
-            {q: [resource_handler.search_field_name, :s]},
+            {q: [resource_handler.search_field_name, :s].push(*permitted_ransack_attributes)},
             :tagged_with,
             :filter,
             :page
         ].freeze
+      end
+
+      def permitted_ransack_attributes
+        [:language_id_eq, :language_site_id_eq]
       end
 
       def load_resource

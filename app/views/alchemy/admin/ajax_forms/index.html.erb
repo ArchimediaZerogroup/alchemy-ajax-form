@@ -1,0 +1,55 @@
+<% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
+
+<% toolbar(
+       buttons: [
+           {
+               icon: :plus,
+               label: label_title,
+               url: new_resource_path,
+               title: label_title,
+               hotkey: 'alt+n',
+               dialog_options: {
+                   title: label_title,
+                   size: resource_window_size
+               },
+               if_permitted_to: [:create, resource_model]
+           },
+           {
+               icon: 'download',
+               url: resource_url_proxy.url_for(action: 'index', format: 'csv', q: search_filter_params[:q], sort: params[:sort]),
+               label: Alchemy.t(:download_csv),
+               title: Alchemy.t(:download_csv),
+               dialog: false,
+               if_permitted_to: [:index, resource_model]
+           }
+       ],
+       search: !lookup_context.any?("search_panel", lookup_context.prefixes, true)
+   ) %>
+
+<div id="archive_all" class="resources-table-wrapper<%= ' with_tag_filter' if resource_has_tags || resource_has_filters %>">
+
+  <%= render 'alchemy/admin/resources/table_header' %>
+  <% if lookup_context.any? "search_panel", lookup_context.prefixes, true %>
+    <%= render partial: "search_panel" %>
+  <% end %>
+  <%= render 'table' %>
+
+  <% if resource_has_tags || resource_has_filters %>
+    <div id="library_sidebar">
+      <% if resource_has_filters %>
+        <%= render 'filter_bar' %>
+      <% end %>
+
+      <% if resource_has_tags %>
+        <%= render 'tag_list' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+
+<script type="text/javascript">
+    if ($(".search_panel").length > 0) {
+        $("#main_content table.list").css("padding-top", $(".search_panel").height())
+    }
+</script>

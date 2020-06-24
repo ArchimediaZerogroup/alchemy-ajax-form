@@ -51,6 +51,8 @@ it:
   submit: "Invia"
   form_sended_succesfully: "Inviato con successo"
   show: Visualizza
+  alchemy_ajax_form:
+    submit_search: "Cerca..."
 
 
 
