@@ -23,11 +23,15 @@ module Alchemy
               sb << content_tag(:div, class: "search_fields_group") do
                 search_fields = ActiveSupport::SafeBuffer.new
                 search_fields << f.input(resource_handler.search_field_name,
-                              label: false,
-                              input_html: {
-                                  class: 'search_input_field',
-                                  placeholder: Alchemy.t(:search)
-                              }
+                                         label: false,
+                                         input_html: {
+                                             class: 'search_input_field',
+                                             placeholder: Alchemy.t(:search)
+                                         },
+                                         wrapper_html: {
+                                             class: "full-width"
+                                         }
+
                 )
 
                 search_fields << capture do
