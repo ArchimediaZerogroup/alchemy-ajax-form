@@ -139,7 +139,7 @@
 
                     var widget_id = grecaptcha.render(container_div[0], {
                         'sitekey': '<%= Recaptcha.configuration.site_key! %>',
-                        'badge': 'inline',
+                        'badge': '<%= Alchemy::Ajax::Form.recaptcha_badge %>',
                         'size': 'invisible',
                         'callback': function () {
                             submit_function(form, method, action);

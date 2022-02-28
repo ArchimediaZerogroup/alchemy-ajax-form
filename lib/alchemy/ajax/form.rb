@@ -10,8 +10,10 @@ module Alchemy
   module Ajax
     module Form
       # Your code goes here...
-      mattr_accessor :enable_mjml
+      mattr_accessor :enable_mjml, :recaptcha_badge
       @@enable_mjml = true
+      @@recaptcha_badge = 'inline'
+
 
     end
   end
